@@ -30,10 +30,7 @@ public class BonusController : MonoBehaviour
             {
                 GameManager.instance.BulletToggle(true);
             }
-            else if (gameObject.CompareTag("CloseTrigger"))
-            {
-                //GameManager.instance.CloseTrigger();
-            }else if (gameObject.CompareTag("ThroughBall"))
+            else if (gameObject.CompareTag("ThroughBall"))
             {
                 GameManager.instance.ToggleUltimate(true);
             }
