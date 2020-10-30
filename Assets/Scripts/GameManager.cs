@@ -204,4 +204,8 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void test()
+    {
+
+    }
 }
