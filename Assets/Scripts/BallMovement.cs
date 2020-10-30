@@ -9,6 +9,7 @@ public class BallMovement : MonoBehaviour
     public Transform Player;
     public int ballSpeed;
     private float yLocalPosition;
+    public bool isUltimate;
     
     int collCount = 1;
 
@@ -52,6 +53,22 @@ public class BallMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("GameOverFrame"))
         {
             GameManager.instance.BallFail();
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if ((collision.gameObject.CompareTag("Frame") || collision.gameObject.CompareTag("Player")) && isUltimate)
+        {
+            GetComponent<SphereCollider>().isTrigger = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if ((other.gameObject.CompareTag("Frame") || other.gameObject.CompareTag("Player")) && isUltimate)
+        {
+            GetComponent<SphereCollider>().isTrigger = false;
         }
     }
 }

@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public void SpawnBonus(Transform BrokenBrick)
     {
         int rand = Random.Range(0, bonus.Length);
-        Instantiate(bonus[rand], BrokenBrick.position, transform.rotation);
+        Instantiate(bonus[5], BrokenBrick.position, transform.rotation);
 
     }
 
@@ -202,6 +202,20 @@ public class GameManager : MonoBehaviour
                 fireMode = false;
                 StopCoroutine(FireEnumerator());
             }
+        }
+    }
+
+    public void ToggleUltimate(bool toogle)
+    {
+        if (toogle)
+        {
+            Ball.GetComponent<BallMovement>().isUltimate = true;
+            Ball.GetComponent<SphereCollider>().isTrigger = true;
+        }
+        else
+        {
+            Ball.GetComponent<BallMovement>().isUltimate = false;
+            Ball.GetComponent<SphereCollider>().isTrigger = false;
         }
     }
 }

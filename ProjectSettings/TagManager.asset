@@ -15,6 +15,7 @@ TagManager:
   - BonusHealt
   - FireBrick
   - Bullet
+  - ThroughBall
   layers:
   - Default
   - TransparentFX

@@ -33,6 +33,9 @@ public class BonusController : MonoBehaviour
             else if (gameObject.CompareTag("CloseTrigger"))
             {
                 //GameManager.instance.CloseTrigger();
+            }else if (gameObject.CompareTag("ThroughBall"))
+            {
+                GameManager.instance.ToggleUltimate(true);
             }
             Debug.Log("Player ile çarpıştı");
             Destroy(gameObject);

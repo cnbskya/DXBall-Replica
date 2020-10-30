@@ -34,7 +34,7 @@ public class BrickCollisionController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Bullet"))
+        if (other.gameObject.CompareTag("Bullet") || other.gameObject.name == "Ball")
         {
             BallCollision();
         }
