@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Next")]
     public void NextLevel()
     {
+        ToggleUltimate(false);
         isInputOn = true;
         isGameOn = false;
         ResetBallPosition();
@@ -126,6 +127,7 @@ public class GameManager : MonoBehaviour
 
     public void BallFail()
     {
+        ToggleUltimate(false);
         isGameOn = false;
         lives--;
         if (lives == 0)
@@ -184,7 +186,6 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.6f);
         }
     }
-
     public void BulletToggle(bool toogle)
     {
         if (toogle)
@@ -204,7 +205,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     public void ToggleUltimate(bool toogle)
     {
         if (toogle)
