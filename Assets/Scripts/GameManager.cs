@@ -42,6 +42,18 @@ public class GameManager : MonoBehaviour
         currentlyActiveLevel.SetActive(true);
     }
 
+    public IEnumerator ClearBonusses()
+    {
+        yield return new WaitForEndOfFrame();
+
+        BonusController[] bonusControllers = FindObjectsOfType<BonusController>();
+        Debug.Log(bonusControllers);
+        foreach (BonusController b in bonusControllers)
+        {
+            Destroy(b.gameObject);
+        }
+    }
+
     [ContextMenu("Next")]
     public void NextLevel()
     {
