@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Transform ParentBallAndPlayer,Ball,Player;
     public Transform fireLeft, fireRight;
     public GameObject[] bonus;
+    public AudioClip[] soundFiles;
     private bool fireMode;
     [Space]
     public bool isGameOn;
@@ -127,9 +128,9 @@ public class GameManager : MonoBehaviour
 
     public void BallFail()
     {
-        ToggleUltimate(false);
         isGameOn = false;
         lives--;
+        BallFailSound();
         if (lives == 0)
         {
             UIManager.instance.GameOverPanel(true);
@@ -207,16 +208,30 @@ public class GameManager : MonoBehaviour
     }
     public void ToggleUltimate(bool toogle)
     {
-        //if (toogle)
-        //{
-        //    Ball.GetComponent<BallMovement>().isUltimate = true;
-        //    Ball.GetComponent<SphereCollider>().isTrigger = true;
-        //}
-        //else
-        //{
-        //    Ball.GetComponent<BallMovement>().isUltimate = false;
-        //    Ball.GetComponent<SphereCollider>().isTrigger = false;
-        //}
         BrickCollisionController.ToggleTrigger(toogle);
     }
+
+    public void BallFailSound()
+    {
+        GetComponent<AudioSource>().PlayOneShot(soundFiles[2], 1);
+    }
+    public void BoingSound()
+    {
+        GetComponent<AudioSource>().PlayOneShot(soundFiles[0], 1);
+    }
+    
+    public void WallSound()
+    {
+        GetComponent<AudioSource>().PlayOneShot(soundFiles[4], 1);
+    }
+    public void BrickSound()
+    {
+        GetComponent<AudioSource>().PlayOneShot(soundFiles[1], 1);
+    }
+    
+    public void IronSound()
+    {
+        GetComponent<AudioSource>().PlayOneShot(soundFiles[3], 1);
+    }
+
 }

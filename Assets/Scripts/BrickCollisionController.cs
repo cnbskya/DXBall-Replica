@@ -54,6 +54,7 @@ public class BrickCollisionController : MonoBehaviour
     {
         if (isIron == false)
         {
+            GameManager.instance.BrickSound();
             Destroy(gameObject);
             GetComponentInParent<LevelManagerLocal>().CounterBrick();
             GameManager.instance.UpdateScore(false, false);
@@ -65,7 +66,7 @@ public class BrickCollisionController : MonoBehaviour
 
         if (isIron)
         {
-
+            GameManager.instance.IronSound();
             if (collCount > 0)
             {
                 collCount--;

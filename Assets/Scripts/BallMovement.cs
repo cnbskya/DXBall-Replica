@@ -8,7 +8,7 @@ public class BallMovement : MonoBehaviour
 {
     public Transform Player;
     public int ballSpeed;
-    private float yLocalPosition;
+    private float yLocalPosition; 
     //public bool isUltimate;
     
     int collCount = 1;
@@ -39,10 +39,12 @@ public class BallMovement : MonoBehaviour
             Rigidbody rb = gameObject.GetComponent<Rigidbody>();
             Vector3 ballVector = (transform.position - collision.transform.position).normalized;
             rb.velocity = ballVector * ballSpeed;
+            GameManager.instance.BoingSound();
         }
 
         if (collision.gameObject.CompareTag("Frame"))
         {
+            GameManager.instance.WallSound();
             if(Mathf.Abs(yLocalPosition - transform.position.y) < 0.001f)
             {
                 gameObject.GetComponent<Rigidbody>().velocity = new Vector3(1, -1, 0).normalized * ballSpeed;
