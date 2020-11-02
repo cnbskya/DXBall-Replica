@@ -9,6 +9,7 @@ public class BrickCollisionController : MonoBehaviour
     public bool isIron;
     int randomBonus = 0;
     public bool isBonusOn;
+    public static bool isTriggered;
 
     private void Start()
     {
@@ -17,18 +18,28 @@ public class BrickCollisionController : MonoBehaviour
             GetComponent<Renderer>().material = new Material(GetComponent<Renderer>().material);
         }
     }
-
-    //private void Update()
-    //{
-    //    randomBonus = Random.Range(1, 2);
-    //}
     
-
+    public static void ToggleTrigger(bool toggle)
+    {
+        isTriggered = toggle;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "Ball")
         {
             BallCollision();
+        }
+    }
+
+    private void Update()
+    {
+        if (isTriggered)
+        {
+            GetComponent<BoxCollider>().isTrigger = true;
+        }
+        else
+        {
+            GetComponent<BoxCollider>().isTrigger = false;
         }
     }
 
