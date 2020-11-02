@@ -108,3 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b1af5c143c72d41b9523719abd08cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collCount: 2
+  isIron: 0
+  isBonusOn: 0
+  brokenBrickEffect: {fileID: 861732090586625440, guid: 994aae5d36387134496bcd0956680719, type: 3}

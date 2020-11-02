@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
     {
         int rand = Random.Range(0, bonus.Length);
         Instantiate(bonus[rand], BrokenBrick.position, transform.rotation);
-
     }
 
     private void Awake()
@@ -40,18 +39,6 @@ public class GameManager : MonoBehaviour
     {
         currentlyActiveLevel = GameObject.Find("Levels").transform.GetChild(0).gameObject;
         currentlyActiveLevel.SetActive(true);
-    }
-
-    public IEnumerator ClearBonusses()
-    {
-        yield return new WaitForEndOfFrame();
-
-        BonusController[] bonusControllers = FindObjectsOfType<BonusController>();
-        Debug.Log(bonusControllers);
-        foreach (BonusController b in bonusControllers)
-        {
-            Destroy(b.gameObject);
-        }
     }
 
     [ContextMenu("Next")]
@@ -80,6 +67,7 @@ public class GameManager : MonoBehaviour
     }
     public void ResetBallPosition()
     {
+        BrickCollisionController.ToggleTrigger(false);
         BulletToggle(false);
         Ball.GetComponent<Rigidbody>().velocity = Vector3.zero;
         Ball.GetComponent<SphereCollider>().enabled = false;
@@ -106,38 +94,30 @@ public class GameManager : MonoBehaviour
             UIManager.instance.ScoreIncrement(totalScore);
         }
     }
-    
     public void PlayerExchanceReduction()
     {
-        if (Player.transform.localScale.x == 1.2f)
+        Vector3 scale = Player.transform.localScale;
+
+        if (Player.transform.localScale.x >= 1.2f)
         {
-            Player.transform.localScale = new Vector3(0.8f, 0.15f, 1f);
-        }
-        else if (Player.transform.localScale.x == 1.6f)
-        {
-            Player.transform.localScale = new Vector3(1.2f,0.15f,1f);
+            scale -= Vector3.right * 0.4f;
+            Player.transform.localScale = scale;
         }
     }
     public void PlayerExchanceMagnification()
     {
-        if (Player.transform.localScale.x == 0.8f)
+        Vector3 scale = Player.transform.localScale;
+
+        if (Player.transform.localScale.x < 2)
         {
-            Player.transform.localScale = new Vector3(1.2f, 0.15f, 1f);
-        }
-        else if (Player.transform.localScale.x == 1.2f)
-        {
-            Player.transform.localScale = new Vector3(1.6f, 0.15f, 1f);
-        }
-        else if (Player.transform.localScale.x == 1.6f)
-        {
-            Player.transform.localScale = new Vector3(2f, 0.15f, 1f);
+            scale += Vector3.right * 0.4f;
+            Player.transform.localScale = scale;
         }
     }
     public void PlayerResetSize()
     {
         Player.transform.localScale = new Vector3(1.2f, 0.15f, 1f);
     }
-
     public void BallFail()
     {
         isGameOn = false;
@@ -163,7 +143,6 @@ public class GameManager : MonoBehaviour
             ResetBallPosition();
         }
     }
-
     public void UpdateHealt()
     {
         if(lives <= 3)
@@ -189,7 +168,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     IEnumerator FireEnumerator()
     {
         while (fireMode)
@@ -197,6 +175,17 @@ public class GameManager : MonoBehaviour
             Instantiate(bulletPrefab, fireLeft.transform.position, Quaternion.identity);
             Instantiate(bulletPrefab, fireRight.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(0.6f);
+        }
+    }
+    public IEnumerator ClearBonusses()
+    {
+        yield return new WaitForEndOfFrame();
+
+        BonusController[] bonusControllers = FindObjectsOfType<BonusController>();
+        Debug.Log(bonusControllers);
+        foreach (BonusController b in bonusControllers)
+        {
+            Destroy(b.gameObject);
         }
     }
     public void BulletToggle(bool toogle)
@@ -222,7 +211,6 @@ public class GameManager : MonoBehaviour
     {
         BrickCollisionController.ToggleTrigger(toogle);
     }
-
     public void BallFailSound()
     {
         GetComponent<AudioSource>().PlayOneShot(soundFiles[2], 1);
@@ -231,7 +219,6 @@ public class GameManager : MonoBehaviour
     {
         GetComponent<AudioSource>().PlayOneShot(soundFiles[0], 1);
     }
-    
     public void WallSound()
     {
         GetComponent<AudioSource>().PlayOneShot(soundFiles[4], 1);
@@ -240,10 +227,8 @@ public class GameManager : MonoBehaviour
     {
         GetComponent<AudioSource>().PlayOneShot(soundFiles[1], 1);
     }
-    
     public void IronSound()
     {
         GetComponent<AudioSource>().PlayOneShot(soundFiles[3], 1);
     }
-
 }

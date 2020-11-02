@@ -18,7 +18,6 @@ public class LevelManagerLocal : MonoBehaviour
         if (transform.childCount == 1)
         {
             StartCoroutine(GameManager.instance.ClearBonusses());
-            
             UIManager.instance.LevelCompletePanel(true);
         }
     }

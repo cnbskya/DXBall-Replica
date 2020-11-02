@@ -16,7 +16,6 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Obstacle") || other.gameObject.CompareTag("IronObstacle"))
         {
-            other.GetComponent<BrickCollisionController>().BallCollision();
             Destroy(gameObject);
         }
     }

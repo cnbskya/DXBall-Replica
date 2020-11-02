@@ -7,25 +7,33 @@ public class BrickCollisionController : MonoBehaviour
 {
     public int collCount = 2;
     public bool isIron;
-    int randomBonus = 0;
     public bool isBonusOn;
     public static bool isTriggered;
+    public ParticleSystem brokenBrickEffect;
+
+
+    public void StartParticle()
+    {
+        ParticleSystem ps = Instantiate(brokenBrickEffect, transform.position, transform.rotation);
+        ParticleSystem.MainModule mModule = ps.main;
+        mModule.startColor = GetComponent<Renderer>().material.color;
+    }
+
 
     private void Start()
     {
-        if(isIron)
+        if (isIron)
         {
             GetComponent<Renderer>().material = new Material(GetComponent<Renderer>().material);
         }
     }
-    
     public static void ToggleTrigger(bool toggle)
     {
         isTriggered = toggle;
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.name == "Ball")
+        if (collision.gameObject.name == "Ball")
         {
             BallCollision();
         }
@@ -45,7 +53,12 @@ public class BrickCollisionController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Bullet") || other.gameObject.name == "Ball")
+        if (other.gameObject.name == "Ball")
+        {
+            BallCollision();
+            BallCollision();
+        }
+        if (other.gameObject.CompareTag("Bullet"))
         {
             BallCollision();
         }
@@ -56,6 +69,7 @@ public class BrickCollisionController : MonoBehaviour
         {
             GameManager.instance.BrickSound();
             Destroy(gameObject);
+            StartParticle();
             GetComponentInParent<LevelManagerLocal>().CounterBrick();
             GameManager.instance.UpdateScore(false, false);
             if (isBonusOn)
@@ -75,6 +89,7 @@ public class BrickCollisionController : MonoBehaviour
             if (collCount == 0)
             {
                 Destroy(gameObject);
+                StartParticle();
                 GetComponentInParent<LevelManagerLocal>().CounterBrick();
                 GameManager.instance.UpdateScore(false, false);
                 if (isBonusOn)
