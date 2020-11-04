@@ -1,10 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.WSA;
 using UnityEngine.SceneManagement;
-using JetBrains.Annotations;
 
 public class GameManager : MonoBehaviour
 {
@@ -184,6 +181,7 @@ public class GameManager : MonoBehaviour
             Instantiate(bulletPrefab, fireLeft.transform.position, Quaternion.identity);
             Instantiate(bulletPrefab, fireRight.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(0.7f);
+            ShootSound();
         }
     }
     public IEnumerator ClearBonusses()
@@ -204,7 +202,9 @@ public class GameManager : MonoBehaviour
             if(fireMode == false)
             {
                 fireMode = true;
+                ShootSound();
                 StartCoroutine(FireEnumerator());
+                
             }
         }
         else
@@ -239,5 +239,10 @@ public class GameManager : MonoBehaviour
     public void IronSound()
     {
         GetComponent<AudioSource>().PlayOneShot(soundFiles[3], 1);
+    }
+
+    public void ShootSound()
+    {
+        GetComponent<AudioSource>().PlayOneShot(soundFiles[5], 1);
     }
 }
