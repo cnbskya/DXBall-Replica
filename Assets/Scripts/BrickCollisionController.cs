@@ -11,14 +11,12 @@ public class BrickCollisionController : MonoBehaviour
     public static bool isTriggered;
     public ParticleSystem brokenBrickEffect;
 
-
     public void StartParticle()
     {
         ParticleSystem ps = Instantiate(brokenBrickEffect, transform.position, transform.rotation);
         ParticleSystem.MainModule mModule = ps.main;
         mModule.startColor = GetComponent<Renderer>().material.color;
     }
-
 
     private void Start()
     {

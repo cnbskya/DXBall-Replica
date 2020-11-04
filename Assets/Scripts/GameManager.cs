@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+
         currentlyActiveLevel = GameObject.Find("Levels").transform.GetChild(0).gameObject;
         currentlyActiveLevel.SetActive(true);
     }
@@ -174,7 +175,7 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(bulletPrefab, fireLeft.transform.position, Quaternion.identity);
             Instantiate(bulletPrefab, fireRight.transform.position, Quaternion.identity);
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.7f);
         }
     }
     public IEnumerator ClearBonusses()
