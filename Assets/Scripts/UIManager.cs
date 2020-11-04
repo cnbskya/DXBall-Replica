@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     {
         if (isTrue)
         {
+            GameManager.instance.InputManager.SetActive(false);
             GameManager.instance.isInputOn = false;
             GameManager.instance.ResetBallPosition();
         }

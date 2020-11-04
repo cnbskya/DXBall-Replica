@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameObject bulletPrefab;
+    public GameObject InputManager;
     public Transform levelsParent;
     public GameObject currentlyActiveLevel;
     public GameObject livesSample;
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-
+        StartCoroutine(DelayInput());
         currentlyActiveLevel = GameObject.Find("Levels").transform.GetChild(0).gameObject;
         currentlyActiveLevel.SetActive(true);
     }
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Next")]
     public void NextLevel()
     {
+        StartCoroutine(DelayInput());
         ToggleUltimate(false);
         isInputOn = true;
         isGameOn = false;
@@ -169,6 +171,12 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    IEnumerator DelayInput()
+    {
+        yield return new WaitForSeconds(1.5f);
+        InputManager.SetActive(true);
+    }
+
     IEnumerator FireEnumerator()
     {
         while (fireMode)

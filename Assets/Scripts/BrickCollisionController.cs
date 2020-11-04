@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+using System;
 
 public class BrickCollisionController : MonoBehaviour
 {
@@ -11,8 +13,11 @@ public class BrickCollisionController : MonoBehaviour
     public static bool isTriggered;
     public ParticleSystem brokenBrickEffect;
 
+    
+
     public void StartParticle()
     {
+        
         ParticleSystem ps = Instantiate(brokenBrickEffect, transform.position, transform.rotation);
         ParticleSystem.MainModule mModule = ps.main;
         mModule.startColor = GetComponent<Renderer>().material.color;
@@ -20,10 +25,16 @@ public class BrickCollisionController : MonoBehaviour
 
     private void Start()
     {
+        StartTweenAnimation();
         if (isIron)
         {
             GetComponent<Renderer>().material = new Material(GetComponent<Renderer>().material);
         }
+    }
+    void StartTweenAnimation()
+    {
+        transform.localScale = Vector3.zero;
+        transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), UnityEngine.Random.Range(0f, 2f)).SetDelay(UnityEngine.Random.Range(0f, 1f));
     }
     public static void ToggleTrigger(bool toggle)
     {

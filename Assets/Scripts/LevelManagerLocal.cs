@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class LevelManagerLocal : MonoBehaviour
 {
-    void Start()
-    {
-
-    }
     // Update is called once per frame
     void Update()
     {
