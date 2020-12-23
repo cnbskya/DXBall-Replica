@@ -34,7 +34,7 @@ public class BrickCollisionController : MonoBehaviour
     void StartTweenAnimation()
     {
         transform.localScale = Vector3.zero;
-        transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), UnityEngine.Random.Range(0f, 2f)).SetDelay(UnityEngine.Random.Range(0f, 1f));
+        transform.DOScale(new Vector3(1f, 1f, 1f), UnityEngine.Random.Range(0f, 2f)).SetDelay(UnityEngine.Random.Range(0f, 1f));
     }
     public static void ToggleTrigger(bool toggle)
     {
